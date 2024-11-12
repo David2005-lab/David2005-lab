@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bweni la Wasichana na Wavulana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+        }
+
+        #login-form {
+            margin-top: 50px;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #access-control {
+            margin-top: 50px;
+        }
+
+        #access-control button {
+            background-color: red;
+        }
+
+        #access-control button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bweni la Wasichana na Wavulana</h1>
+
+    <div id="login-form">
+        <label for="user-type">Chagua aina ya mtumiaji:</label>
+        <select id="user-type">
+            <option value="girl">Wasichana</option>
+            <option value="boy">Wavulana</option>
+        </select>
+        <br><br>
+
+        <label for="room">Chagua chumba:</label>
+        <select id="room">
+            <option value="room1">Chumba 1</option>
+            <option value="room2">Chumba 2</option>
+            <option value="room3">Chumba 3</option>
+        </select>
+        <br><br>
+
+        <button onclick="checkAccess()">Ingia</button>
+    </div>
+
+    <div id="access-control" style="display: none;">
+        <h2>Hali ya Bweni</h2>
+        <p id="room-status"></p>
+        <button onclick="exitRoom()">Toka Bweni</button>
+    </div>
+
+    <script>
+        let currentUser = {
+            type: "",
+            room: ""
+        };
+
+        // Inapokufaulu kuingia
+        function checkAccess() {
+            const userType = document.getElementById("user-type").value;
+            const room = document.getElementById("room").value;
+
+            currentUser.type = userType;
+            currentUser.room = room;
+
+            if (userType === "girl" && room === "room1") {
+                // Wasichana wanaruhusiwa kuingia kwenye chumba 1
+                showAccessControl(room);
+            } else if (userType === "boy" && room === "room2") {
+                // Wavulana wanaruhusiwa kuingia kwenye chumba 2
+                showAccessControl(room);
+            } else {
+                alert("Samahani, huwezi kuingia kwenye chumba hiki.");
+            }
+        }
+
+        // Kuonyesha hali ya chumba na kudhibiti kuingia
+        function showAccessControl(room) {
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("access-control").style.display = "block";
+            
+            let roomStatus = `${room} imejaa.`;
+            document.getElementById("room-status").innerText = `Chumba chako: ${roomStatus}`;
+        }
+
+        // Toka kutoka kwenye chumba
+        function exitRoom() {
+            alert(`${currentUser.type} kutoka ${currentUser.room} amefanikiwa kutoka.`);
+            document.getElementById("login-form").style.display = "block";
+            document.getElementById("access-control").style.display = "none";
+        }
+    </script>
+</body>
+</html>
